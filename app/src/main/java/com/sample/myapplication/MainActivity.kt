@@ -13,7 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.library.otpcomposable.Otp
+import com.library.otpcomposable.OtpView
 import com.sample.myapplication.ui.theme.OtpComposableTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,10 +25,11 @@ class MainActivity : ComponentActivity() {
                 val (pinValue, onPinValueChange) = remember { mutableStateOf("") }
 
                 Surface(color = MaterialTheme.colors.background) {
-                    Otp(
+                    OtpView(
                         pin = pinValue,
                         onPinChange = onPinValueChange,
-                        modifier = Modifier.padding(8.dp)
+                        modifier = Modifier.padding(8.dp),
+                        isError = true
                     )
                 }
             }

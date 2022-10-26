@@ -32,7 +32,7 @@ const val PIN_VIEW_TYPE_UNDERLINE = 0
 const val PIN_VIEW_TYPE_BORDER = 1
 
 @Composable
-fun Otp(
+fun OtpView(
     pin: String,
     onPinChange: (String) -> Unit,
     digitColor: Color = MaterialTheme.colors.onBackground,
@@ -40,33 +40,58 @@ fun Otp(
     containerSize: Dp = digitSize.value.dp * 2,
     digitCount: Int = 6,
     type: Int = PIN_VIEW_TYPE_UNDERLINE,
-    modifier: Modifier
+    modifier: Modifier,
+    isError: Boolean = false,
+    errorView: @Composable () -> Unit = { ErrorView(modifier) }
 ) {
-    BasicTextField(
-        value = pin,
-        onValueChange = { if (it.length <= digitCount) onPinChange(it) },
-        modifier = modifier,
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-        decorationBox = {
-            Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                repeat(digitCount) { index ->
-                    Digit(
-                        index = index,
-                        pin = pin,
-                        color = digitColor,
-                        size = digitSize,
-                        containerSize = containerSize,
-                        type = type
-                    )
-                    Spacer(modifier = Modifier.width(5.dp))
-                }
+    Column {
+        BasicTextField(
+            value = pin,
+            onValueChange = { if (it.length <= digitCount) onPinChange(it) },
+            modifier = modifier,
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            decorationBox = {
+                DigitsView(
+                    count = digitCount,
+                    pin = pin,
+                    color = digitColor,
+                    size = digitSize,
+                    containerSize = containerSize,
+                    type = type
+                )
             }
-        }
-    )
+        )
+
+        if (isError) errorView()
+    }
 }
 
 @Composable
-private fun Digit(
+private fun DigitsView(
+    count: Int,
+    pin: String,
+    color: Color,
+    size: TextUnit,
+    containerSize: Dp,
+    type: Int = PIN_VIEW_TYPE_UNDERLINE
+) {
+    Row(horizontalArrangement = Arrangement.SpaceBetween) {
+        repeat(count) { index ->
+            DigitView(
+                index = index,
+                pin = pin,
+                color = color,
+                size = size,
+                containerSize = containerSize,
+                type = type
+            )
+            Spacer(modifier = Modifier.width(5.dp))
+        }
+    }
+}
+
+@Composable
+private fun DigitView(
     index: Int,
     pin: String,
     color: Color,
@@ -109,14 +134,25 @@ private fun Digit(
     }
 }
 
+@Composable
+private fun ErrorView(modifier: Modifier) {
+    Text(
+        modifier = modifier,
+        text = "Code is not correct",
+        color = Color.Red,
+        fontSize = MaterialTheme.typography.caption.fontSize
+    )
+}
+
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     val (pinValue, onPinValueChange) = remember { mutableStateOf("") }
-    Otp(
+    OtpView(
         pin = pinValue,
         onPinChange = onPinValueChange,
         type = PIN_VIEW_TYPE_UNDERLINE,
-        modifier = Modifier.padding(8.dp)
+        modifier = Modifier.padding(8.dp),
+        isError = true
     )
 }
