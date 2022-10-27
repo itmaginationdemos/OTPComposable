@@ -1,6 +1,7 @@
 package com.sample.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.padding
@@ -27,9 +28,12 @@ class MainActivity : ComponentActivity() {
                 Surface(color = MaterialTheme.colors.background) {
                     OtpView(
                         pin = pinValue,
+                        expectedPin = "123456",
                         onPinChange = onPinValueChange,
                         modifier = Modifier.padding(8.dp),
-                        isError = true
+                        context = this,
+                        errorToastMsg = "Wrong code entered",
+                        onSuccess = { Log.d("OTP", "SUCESS") }
                     )
                 }
             }
