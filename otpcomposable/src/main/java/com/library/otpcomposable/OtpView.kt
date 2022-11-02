@@ -39,7 +39,7 @@ fun OtpView(
     containerSize: Dp = digitSize.value.dp * 2.2f,
     digitCount: Int = 6,
     color: Color = MaterialTheme.colors.onBackground,
-    type: DigitViewType = DigitViewType.UNDERLINE,
+    type: DigitViewType = DigitViewType.Rounded(50),
     context: Context? = null,
     errorModifier: Modifier,
     errorToastMsg: String = "",
@@ -100,7 +100,7 @@ fun OtpPreview() {
     OtpView(
         pin = pinValue,
         onPinChange = onPinValueChange,
-        type = DigitViewType.UNDERLINE,
+        type = DigitViewType.Underline,
         modifier = Modifier.padding(8.dp),
         errorModifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
         expectedPin = "123456",

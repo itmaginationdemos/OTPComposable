@@ -21,7 +21,7 @@ fun DigitsView(
     color: Color,
     size: TextUnit,
     containerSize: Dp,
-    type: DigitViewType = DigitViewType.UNDERLINE,
+    type: DigitViewType = DigitViewType.Underline,
     isError: Boolean
 ) {
     Row(
@@ -51,7 +51,7 @@ fun DigitsPreview() {
         color = Color.Black,
         size = 22.sp,
         containerSize = (22 * 2.2f).dp,
-        type = DigitViewType.UNDERLINE,
+        type = DigitViewType.Underline,
         isError = false
     )
 }

@@ -33,7 +33,7 @@ fun DigitView(
     size: TextUnit,
     containerSize: Dp,
     isError: Boolean,
-    type: DigitViewType = DigitViewType.UNDERLINE
+    type: DigitViewType = DigitViewType.Underline
 ) {
     val modifier = resolveModifier(
         type = type,
@@ -53,7 +53,7 @@ fun DigitView(
             style = MaterialTheme.typography.body1
         )
 
-        if (type == DigitViewType.UNDERLINE) {
+        if (type == DigitViewType.Underline) {
             Spacer(modifier = Modifier.height(2.dp))
             Box(
                 modifier = Modifier
@@ -70,14 +70,14 @@ private fun resolveModifier(
     color: Color,
     containerSize: Dp
 ): Modifier {
-    val shape = when (type) {
-        DigitViewType.CIRCLE -> 50
-        else -> 10
+    val roundedBy = when (type) {
+        is DigitViewType.Rounded -> type.percentage
+        else -> 0
     }
 
-    return if (type == DigitViewType.ROUNDED) {
+    return if (type is DigitViewType.Rounded) {
         Modifier
-            .border(width = 1.dp, color = color, shape = RoundedCornerShape(shape))
+            .border(width = 1.dp, color = color, shape = RoundedCornerShape(roundedBy))
             .size(containerSize)
     } else {
         Modifier.width(containerSize)
@@ -93,7 +93,7 @@ fun DigitPreview() {
         color = Color.Black,
         size = 22.sp,
         containerSize = (22 * 2.2f).dp,
-        type = DigitViewType.ROUNDED,
+        type = DigitViewType.Rounded(50),
         isError = false
     )
 }

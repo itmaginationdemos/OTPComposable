@@ -71,7 +71,7 @@ fun Screen(context: Context) {
                 onPinChange = onPinValueChange,
                 expectedPin = "123456",
                 onSuccess = { Log.d("OTP", "SUCESS") },
-                type = DigitViewType.ROUNDED,
+                type = DigitViewType.Rounded(50),
                 modifier = Modifier.padding(8.dp),
                 context = context,
                 errorToastMsg = "Wrong code entered",

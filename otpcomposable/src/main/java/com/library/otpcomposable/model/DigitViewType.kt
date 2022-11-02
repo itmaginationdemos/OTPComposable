@@ -1,5 +1,6 @@
 package com.library.otpcomposable.model
 
-enum class DigitViewType {
-    UNDERLINE, ROUNDED, CIRCLE
+sealed interface DigitViewType {
+    object Underline : DigitViewType
+    data class Rounded(val percentage: Int): DigitViewType
 }
