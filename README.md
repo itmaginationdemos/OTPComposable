@@ -1,4 +1,4 @@
-# Compose One Time Password View
+# OTPComposable
 This is a small library/view for anyone who is not in the mode to create yet another OTP screen from scratch.
 
 
