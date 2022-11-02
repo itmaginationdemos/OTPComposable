@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.library.otpcomposable.OtpView
-import com.library.otpcomposable.PIN_VIEW_TYPE_BORDER
+import com.library.otpcomposable.model.DigitViewType
 import com.sample.myapplication.ui.theme.OtpComposableTheme
 
 class MainActivity : ComponentActivity() {
@@ -35,8 +35,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            OtpComposableTheme() {
-                Surface() {
+            OtpComposableTheme {
+                Surface {
                     Screen(this)
                 }
             }
@@ -62,7 +62,6 @@ fun Screen(context: Context) {
                 style = MaterialTheme.typography.h6,
                 fontWeight = FontWeight.Normal,
                 textAlign = TextAlign.Center,
-                maxLines = 2,
                 lineHeight = 30.sp,
                 letterSpacing = 2.sp
             )
@@ -72,7 +71,7 @@ fun Screen(context: Context) {
                 onPinChange = onPinValueChange,
                 expectedPin = "123456",
                 onSuccess = { Log.d("OTP", "SUCESS") },
-                type = PIN_VIEW_TYPE_BORDER,
+                type = DigitViewType.ROUNDED,
                 modifier = Modifier.padding(8.dp),
                 context = context,
                 errorToastMsg = "Wrong code entered",
@@ -85,7 +84,5 @@ fun Screen(context: Context) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    Surface() {
-        Screen(LocalContext.current)
-    }
+    Screen(LocalContext.current)
 }

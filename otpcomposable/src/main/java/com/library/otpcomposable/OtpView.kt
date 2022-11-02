@@ -26,9 +26,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.library.otpcomposable.helpers.animateText
-
-const val PIN_VIEW_TYPE_UNDERLINE = 0
-const val PIN_VIEW_TYPE_BORDER = 1
+import com.library.otpcomposable.model.DigitViewType
 
 @Composable
 fun OtpView(
@@ -36,22 +34,20 @@ fun OtpView(
     onPinChange: (String) -> Unit,
     expectedPin: String,
     onSuccess: () -> Unit,
-    digitColor: Color = MaterialTheme.colors.onBackground,
+    modifier: Modifier,
     digitSize: TextUnit = 24.sp,
     containerSize: Dp = digitSize.value.dp * 2.2f,
     digitCount: Int = 6,
-    type: Int = PIN_VIEW_TYPE_UNDERLINE,
-    modifier: Modifier,
+    color: Color = MaterialTheme.colors.onBackground,
+    type: DigitViewType = DigitViewType.UNDERLINE,
     context: Context? = null,
     errorModifier: Modifier,
     errorToastMsg: String = "",
-    errorMessage: String = "Code is incorrect",
+    errorMessage: String = "Code is incorrect"
 ) {
     val scope = rememberCoroutineScope()
     val offset = remember { Animatable(0f) }
     var isError by remember { mutableStateOf(false) }
-
-    // TODO red color of borders if error
 
     Column {
         val view = LocalView.current
@@ -81,10 +77,11 @@ fun OtpView(
                 DigitsView(
                     count = digitCount,
                     pin = pin,
-                    color = digitColor,
+                    color = color,
                     size = digitSize,
                     containerSize = containerSize,
-                    type = type
+                    type = type,
+                    isError = isError
                 )
             }
         )
@@ -103,7 +100,7 @@ fun OtpPreview() {
     OtpView(
         pin = pinValue,
         onPinChange = onPinValueChange,
-        type = PIN_VIEW_TYPE_UNDERLINE,
+        type = DigitViewType.UNDERLINE,
         modifier = Modifier.padding(8.dp),
         errorModifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
         expectedPin = "123456",

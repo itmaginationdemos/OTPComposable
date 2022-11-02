@@ -18,7 +18,7 @@ fun ErrorView(message: String, modifier: Modifier) {
     )
 }
 
-@Preview()
+@Preview
 @Composable
 fun ErrorPreview() {
     ErrorView(

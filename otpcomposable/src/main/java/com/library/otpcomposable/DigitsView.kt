@@ -5,8 +5,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -14,6 +12,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.library.otpcomposable.model.DigitViewType
 
 @Composable
 fun DigitsView(
@@ -22,7 +21,8 @@ fun DigitsView(
     color: Color,
     size: TextUnit,
     containerSize: Dp,
-    type: Int = PIN_VIEW_TYPE_UNDERLINE
+    type: DigitViewType = DigitViewType.UNDERLINE,
+    isError: Boolean
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween
@@ -34,7 +34,8 @@ fun DigitsView(
                 color = color,
                 size = size,
                 containerSize = containerSize,
-                type = type
+                type = type,
+                isError = isError
             )
             Spacer(modifier = Modifier.width(5.dp))
         }
@@ -45,11 +46,12 @@ fun DigitsView(
 @Composable
 fun DigitsPreview() {
     DigitsView(
+        count = 6,
         pin = "123",
         color = Color.Black,
         size = 22.sp,
         containerSize = (22 * 2.2f).dp,
-        type = PIN_VIEW_TYPE_BORDER,
-        count = 6
+        type = DigitViewType.UNDERLINE,
+        isError = false
     )
 }
