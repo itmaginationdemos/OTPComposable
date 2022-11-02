@@ -70,7 +70,7 @@ fun Screen(context: Context) {
                 pin = pinValue,
                 onPinChange = onPinValueChange,
                 expectedPin = "123456",
-                onSuccess = { Log.d("OTP", "SUCESS") },
+                onSuccess = { Log.d("OTP", "SUCCESS") },
                 type = DigitViewType.Rounded(50),
                 modifier = Modifier.padding(8.dp),
                 context = context,
