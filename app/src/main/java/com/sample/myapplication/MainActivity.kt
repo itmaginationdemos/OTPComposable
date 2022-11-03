@@ -1,6 +1,5 @@
 package com.sample.myapplication
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -25,7 +24,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +31,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.library.otpcomposable.OtpView
 import com.library.otpcomposable.model.DigitViewType
+import com.library.otpcomposable.uimodel.OtpErrorCustomization
+import com.library.otpcomposable.uimodel.OtpViewCustomization
 import com.sample.myapplication.ui.theme.OtpComposableTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,7 +44,7 @@ class MainActivity : ComponentActivity() {
             OtpComposableTheme {
                 Scaffold(
                     scaffoldState = scaffoldState,
-                    content = { padding -> Screen(this, scaffoldState, padding) },
+                    content = { padding -> Screen(scaffoldState, padding) },
                     snackbarHost = { host -> SnackbarHost(hostState = host) { Snackbar(snackbarData = it) } }
                 )
             }
@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Screen(context: Context, scaffoldState: ScaffoldState?, padding: PaddingValues) {
+fun Screen(scaffoldState: ScaffoldState, padding: PaddingValues) {
     Box(
         modifier = Modifier.fillMaxSize().padding(padding),
         contentAlignment = Alignment.Center
@@ -79,12 +79,17 @@ fun Screen(context: Context, scaffoldState: ScaffoldState?, padding: PaddingValu
                 onPinChange = onPinValueChange,
                 expectedPin = "123456",
                 onSuccess = { Log.d("OTP", "SUCCESS") },
-                type = DigitViewType.Rounded(50),
-                modifier = Modifier.padding(8.dp),
-                context = context,
+                view = OtpViewCustomization(
+                    modifier = Modifier.padding(8.dp),
+                    type = DigitViewType.Rounded(50),
+                    color = MaterialTheme.colors.onBackground
+                ),
                 scaffoldState = scaffoldState,
-                errorSnackMsg = "Wrong code entered",
-                errorModifier = Modifier.padding(8.dp)
+                error = OtpErrorCustomization(
+                    snackMsg = "Incorrect code",
+                    message = "Wrong code entered",
+                    modifier = Modifier.padding(8.dp)
+                )
             )
         }
     }
@@ -93,5 +98,5 @@ fun Screen(context: Context, scaffoldState: ScaffoldState?, padding: PaddingValu
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    Screen(LocalContext.current, null, PaddingValues(0.dp))
+    Screen(rememberScaffoldState(), PaddingValues(0.dp))
 }

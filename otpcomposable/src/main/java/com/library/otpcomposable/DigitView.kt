@@ -20,25 +20,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.library.otpcomposable.model.DigitViewType
+import com.library.otpcomposable.uimodel.OtpViewCustomization
 
 @Composable
 fun DigitView(
     index: Int,
     pin: String,
-    color: Color,
-    size: TextUnit,
-    containerSize: Dp,
     isError: Boolean,
-    type: DigitViewType = DigitViewType.Underline
+    view: OtpViewCustomization
 ) {
     val modifier = Modifier.resolveModifier(
-        type = type,
-        containerSize = containerSize,
-        color = if (isError) MaterialTheme.colors.onError else color
+        type = view.type,
+        containerSize = view.containerSize,
+        color = if (isError) MaterialTheme.colors.onError else view.color
     )
 
     Column(
@@ -47,19 +43,19 @@ fun DigitView(
         Text(
             text = if (index >= pin.length) "" else pin[index].toString(),
             modifier = modifier.wrapContentHeight(CenterVertically),
-            color = color,
+            color = view.color,
             textAlign = TextAlign.Center,
-            fontSize = size,
+            fontSize = view.digitSize,
             style = MaterialTheme.typography.body1
         )
 
-        if (type == DigitViewType.Underline) {
+        if (view.type == DigitViewType.Underline) {
             Spacer(modifier = Modifier.height(2.dp))
             Box(
                 modifier = Modifier
-                    .background(color)
+                    .background(view.color)
                     .height(1.dp)
-                    .width(containerSize)
+                    .width(view.containerSize)
             )
         }
     }
@@ -90,10 +86,7 @@ fun DigitPreview() {
     DigitView(
         index = 1,
         pin = "123",
-        color = Color.Black,
-        size = 22.sp,
-        containerSize = (22 * 2.2f).dp,
-        type = DigitViewType.Rounded(50),
-        isError = false
+        isError = false,
+        view = OtpViewCustomization()
     )
 }

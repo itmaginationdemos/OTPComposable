@@ -6,36 +6,25 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.library.otpcomposable.model.DigitViewType
+import com.library.otpcomposable.uimodel.OtpViewCustomization
 
 @Composable
 fun DigitsView(
-    count: Int,
     pin: String,
-    color: Color,
-    size: TextUnit,
-    containerSize: Dp,
-    type: DigitViewType = DigitViewType.Underline,
-    isError: Boolean
+    isError: Boolean,
+    view: OtpViewCustomization
 ) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        repeat(count) { index ->
+        repeat(view.digitCount) { index ->
             DigitView(
                 index = index,
                 pin = pin,
-                color = color,
-                size = size,
-                containerSize = containerSize,
-                type = type,
-                isError = isError
+                isError = isError,
+                view = view
             )
             Spacer(modifier = Modifier.width(5.dp))
         }
@@ -46,12 +35,8 @@ fun DigitsView(
 @Composable
 fun DigitsPreview() {
     DigitsView(
-        count = 6,
         pin = "123",
-        color = Color.Black,
-        size = 22.sp,
-        containerSize = (22 * 2.2f).dp,
-        type = DigitViewType.Underline,
-        isError = false
+        isError = false,
+        view = OtpViewCustomization()
     )
 }
