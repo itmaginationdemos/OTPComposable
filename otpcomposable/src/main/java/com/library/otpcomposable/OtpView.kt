@@ -1,7 +1,6 @@
 package com.library.otpcomposable
 
 import android.content.Context
-import android.widget.Toast
 import androidx.compose.animation.core.Animatable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.offset
@@ -9,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.ScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -27,6 +28,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.library.otpcomposable.helpers.animateText
 import com.library.otpcomposable.model.DigitViewType
+import kotlinx.coroutines.launch
+
+const val OTP_VIEW_TAG = "otp_view"
 
 @Composable
 fun OtpView(
@@ -42,8 +46,9 @@ fun OtpView(
     type: DigitViewType = DigitViewType.Rounded(50),
     context: Context? = null,
     errorModifier: Modifier,
-    errorToastMsg: String = "",
-    errorMessage: String = "Code is incorrect"
+    errorSnackMsg: String = "",
+    errorMessage: String = "Code is incorrect",
+    scaffoldState: ScaffoldState? = null
 ) {
     val scope = rememberCoroutineScope()
     val offset = remember { Animatable(0f) }
@@ -60,8 +65,10 @@ fun OtpView(
                 // handle error
                 isError = if (it.length >= digitCount && it != expectedPin) {
                     animateText(offset, scope, view)
-                    if (context != null && errorToastMsg.isNotEmpty()) {
-                        Toast.makeText(context, errorToastMsg, Toast.LENGTH_SHORT).show()
+                    if (context != null && errorSnackMsg.isNotEmpty()) {
+                        scope.launch {
+                            scaffoldState?.snackbarHostState?.showSnackbar(errorSnackMsg)
+                        }
                     }
                     true
                 } else {
@@ -71,7 +78,7 @@ fun OtpView(
                 // handle success
                 if (it == expectedPin) onSuccess()
             },
-            modifier = modifier.offset(offset.value.dp, 0.dp),
+            modifier = modifier.offset(offset.value.dp, 0.dp).testTag(OTP_VIEW_TAG),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             decorationBox = {
                 DigitsView(
@@ -100,10 +107,11 @@ fun OtpPreview() {
     OtpView(
         pin = pinValue,
         onPinChange = onPinValueChange,
-        type = DigitViewType.Underline,
-        modifier = Modifier.padding(8.dp),
-        errorModifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
         expectedPin = "123456",
-        onSuccess = {}
+        onSuccess = {},
+        modifier = Modifier.padding(8.dp),
+        type = DigitViewType.Underline,
+        errorModifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+        scaffoldState = null
     )
 }

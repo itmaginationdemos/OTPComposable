@@ -7,14 +7,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
+import androidx.compose.material.Snackbar
+import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
+import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,24 +40,27 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
+            val scaffoldState = rememberScaffoldState()
             OtpComposableTheme {
-                Surface {
-                    Screen(this)
-                }
+                Scaffold(
+                    scaffoldState = scaffoldState,
+                    content = { padding -> Screen(this, scaffoldState, padding) },
+                    snackbarHost = { host -> SnackbarHost(hostState = host) { Snackbar(snackbarData = it) } }
+                )
             }
         }
     }
 }
 
 @Composable
-fun Screen(context: Context) {
+fun Screen(context: Context, scaffoldState: ScaffoldState?, padding: PaddingValues) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxSize().padding(padding),
         contentAlignment = Alignment.Center
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.fillMaxWidth().padding(bottom = 200.dp)
+            modifier = Modifier.fillMaxWidth().padding(bottom = 100.dp)
         ) {
             val (pinValue, onPinValueChange) = remember { mutableStateOf("") }
 
@@ -74,7 +82,8 @@ fun Screen(context: Context) {
                 type = DigitViewType.Rounded(50),
                 modifier = Modifier.padding(8.dp),
                 context = context,
-                errorToastMsg = "Wrong code entered",
+                scaffoldState = scaffoldState,
+                errorSnackMsg = "Wrong code entered",
                 errorModifier = Modifier.padding(8.dp)
             )
         }
@@ -84,5 +93,5 @@ fun Screen(context: Context) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    Screen(LocalContext.current)
+    Screen(LocalContext.current, null, PaddingValues(0.dp))
 }
