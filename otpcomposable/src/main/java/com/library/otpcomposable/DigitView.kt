@@ -35,7 +35,7 @@ fun DigitView(
     isError: Boolean,
     type: DigitViewType = DigitViewType.Underline
 ) {
-    val modifier = resolveModifier(
+    val modifier = Modifier.resolveModifier(
         type = type,
         containerSize = containerSize,
         color = if (isError) MaterialTheme.colors.onError else color
@@ -65,7 +65,7 @@ fun DigitView(
     }
 }
 
-private fun resolveModifier(
+private fun Modifier.resolveModifier(
     type: DigitViewType,
     color: Color,
     containerSize: Dp
@@ -76,11 +76,11 @@ private fun resolveModifier(
     }
 
     return if (type is DigitViewType.Rounded) {
-        Modifier
+        this
             .border(width = 1.dp, color = color, shape = RoundedCornerShape(roundedBy))
             .size(containerSize)
     } else {
-        Modifier.width(containerSize)
+        this.width(containerSize)
     }
 }
 
