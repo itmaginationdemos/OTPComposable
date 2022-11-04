@@ -1,6 +1,5 @@
 package com.library.otpcomposable
 
-import android.util.Log
 import android.view.View
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationVector1D
@@ -21,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -32,10 +30,12 @@ import com.library.otpcomposable.uimodel.OtpViewCustomization
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-const val OTP_VIEW_TAG = "otp_view"
-
+/**
+ * Use this in case when the one time pin/password is known in advance.
+ * This View will then be able to handle error states automatically.
+ */
 @Composable
-fun OtpView(
+fun ExistingOtpView(
     pin: String,
     onPinChange: (String) -> Unit,
     expectedPin: String,
@@ -60,7 +60,7 @@ fun OtpView(
                 // handle success
                 if (it == expectedPin) onSuccess()
             },
-            modifier = view.modifier.offset(offset.value.dp, 0.dp).testTag(OTP_VIEW_TAG),
+            modifier = view.modifier.offset(offset.value.dp, 0.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             decorationBox = {
                 DigitsView(
@@ -103,9 +103,9 @@ fun handleError(
 
 @Preview(showBackground = true)
 @Composable
-fun OtpPreview() {
+fun ExistingOtpPreview() {
     val (pinValue, onPinValueChange) = remember { mutableStateOf("") }
-    OtpView(
+    ExistingOtpView(
         pin = pinValue,
         onPinChange = onPinValueChange,
         expectedPin = "123456",

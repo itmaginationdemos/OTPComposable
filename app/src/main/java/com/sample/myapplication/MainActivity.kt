@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.library.otpcomposable.OtpView
+import com.library.otpcomposable.ExistingOtpView
 import com.library.otpcomposable.model.DigitViewType
 import com.library.otpcomposable.uimodel.OtpErrorCustomization
 import com.library.otpcomposable.uimodel.OtpViewCustomization
@@ -74,7 +74,7 @@ fun Screen(scaffoldState: ScaffoldState, padding: PaddingValues) {
                 letterSpacing = 2.sp
             )
             Spacer(Modifier.height(24.dp))
-            OtpView(
+            ExistingOtpView(
                 pin = pinValue,
                 onPinChange = onPinValueChange,
                 expectedPin = "123456",
