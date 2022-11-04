@@ -40,8 +40,6 @@ fun OtpView(
     pin: String,
     onPinChange: (String) -> Unit,
     onFullPin: (String) -> Unit,
-    // remove otp
-    // view to content
     content: ContentCustomization,
     error: ErrorCustomization,
     loading: LoadingCustomization,

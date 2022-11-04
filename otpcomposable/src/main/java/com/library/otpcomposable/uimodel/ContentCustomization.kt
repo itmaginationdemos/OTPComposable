@@ -12,7 +12,7 @@ data class ContentCustomization(
     val modifier: Modifier = Modifier,
     val color: Color = Color.Black,
     val digitCount: Int = 6,
-    val type: DigitViewType = DigitViewType.Rounded(50),
+    val type: DigitViewType = DigitViewType.Rounded(0),
     val digitSize: TextUnit = 24.sp,
     val containerSize: Dp = digitSize.value.dp * 2.2f,
 )
