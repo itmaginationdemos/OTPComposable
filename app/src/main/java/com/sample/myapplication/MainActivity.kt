@@ -1,7 +1,6 @@
 package com.sample.myapplication
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Box
@@ -20,8 +19,10 @@ import androidx.compose.material.SnackbarHost
 import androidx.compose.material.Text
 import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -29,11 +30,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.library.otpcomposable.ExistingOtpView
+import com.library.otpcomposable.OtpView
 import com.library.otpcomposable.model.DigitViewType
+import com.library.otpcomposable.uimodel.LCE
 import com.library.otpcomposable.uimodel.OtpErrorCustomization
+import com.library.otpcomposable.uimodel.OtpLoadingCustomization
 import com.library.otpcomposable.uimodel.OtpViewCustomization
 import com.sample.myapplication.ui.theme.OtpComposableTheme
+
+// todo
+// password: Boolean = false,
+// passwordChar: String = "*",
+// keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+
+const val DIGIT_COUNT = 5
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,11 +68,15 @@ fun Screen(scaffoldState: ScaffoldState, padding: PaddingValues) {
         modifier = Modifier.fillMaxSize().padding(padding),
         contentAlignment = Alignment.Center
     ) {
+        var lce by remember { mutableStateOf(LCE.Content) }
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier.fillMaxWidth().padding(bottom = 100.dp)
         ) {
             val (pinValue, onPinValueChange) = remember { mutableStateOf("") }
+            // reset state to content if user deleted a digit
+            if (pinValue.length < DIGIT_COUNT) lce = LCE.Content
 
             Text(
                 modifier = Modifier.padding(24.dp, 0.dp),
@@ -74,22 +88,27 @@ fun Screen(scaffoldState: ScaffoldState, padding: PaddingValues) {
                 letterSpacing = 2.sp
             )
             Spacer(Modifier.height(24.dp))
-            ExistingOtpView(
+            OtpView(
                 pin = pinValue,
                 onPinChange = onPinValueChange,
-                expectedPin = "123456",
-                onSuccess = { Log.d("OTP", "SUCCESS") },
+                onFullPin = { fullPin ->
+                    // switch to loading and probably pass to BE
+                    lce = LCE.Loading
+                },
                 view = OtpViewCustomization(
                     modifier = Modifier.padding(8.dp),
                     type = DigitViewType.Rounded(50),
-                    color = MaterialTheme.colors.onBackground
+                    color = MaterialTheme.colors.onBackground,
+                    digitCount = DIGIT_COUNT
                 ),
                 scaffoldState = scaffoldState,
                 error = OtpErrorCustomization(
                     snackMsg = "Incorrect code",
                     message = "Wrong code entered",
                     modifier = Modifier.padding(8.dp)
-                )
+                ),
+                loading = OtpLoadingCustomization(modifier = Modifier.padding(8.dp)),
+                lce = lce
             )
         }
     }
