@@ -25,10 +25,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.library.otpcomposable.helpers.animateText
 import com.library.otpcomposable.model.DigitViewType
+import com.library.otpcomposable.uimodel.ContentCustomization
+import com.library.otpcomposable.uimodel.ErrorCustomization
 import com.library.otpcomposable.uimodel.LCE
-import com.library.otpcomposable.uimodel.OtpErrorCustomization
-import com.library.otpcomposable.uimodel.OtpLoadingCustomization
-import com.library.otpcomposable.uimodel.OtpViewCustomization
+import com.library.otpcomposable.uimodel.LoadingCustomization
+import com.library.otpcomposable.widgets.DigitsView
+import com.library.otpcomposable.widgets.ErrorView
+import com.library.otpcomposable.widgets.LoadingView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -37,9 +40,11 @@ fun OtpView(
     pin: String,
     onPinChange: (String) -> Unit,
     onFullPin: (String) -> Unit,
-    view: OtpViewCustomization,
-    error: OtpErrorCustomization,
-    loading: OtpLoadingCustomization,
+    // remove otp
+    // view to content
+    content: ContentCustomization,
+    error: ErrorCustomization,
+    loading: LoadingCustomization,
     scaffoldState: ScaffoldState,
     lce: LCE = LCE.Content,
 ) {
@@ -61,19 +66,19 @@ fun OtpView(
             value = pin,
             onValueChange = {
                 // update state
-                if (it.length <= view.digitCount) {
+                if (it.length <= content.digitCount) {
                     onPinChange(it)
                 }
                 // full pin entered
-                if (it.length == view.digitCount) onFullPin(it)
+                if (it.length == content.digitCount) onFullPin(it)
             },
             enabled = lce != LCE.Loading,
-            modifier = view.modifier.offset(offset.value.dp, 0.dp),
+            modifier = content.modifier.offset(offset.value.dp, 0.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             decorationBox = {
                 DigitsView(
                     pin = pin,
-                    view = view,
+                    content = content,
                     isError = lce == LCE.Error
                 )
             }
@@ -91,7 +96,7 @@ fun OtpView(
 }
 
 fun handleError(
-    error: OtpErrorCustomization,
+    error: ErrorCustomization,
     scaffoldState: ScaffoldState,
     offset: Animatable<Float, AnimationVector1D>,
     scope: CoroutineScope,
@@ -114,12 +119,12 @@ fun OtpPreview() {
         onPinChange = onPinValueChange,
         expectedPin = "123456",
         onSuccess = {},
-        view = OtpViewCustomization(
+        content = ContentCustomization(
             modifier = Modifier.padding(8.dp),
             type = DigitViewType.Rounded(50),
             color = MaterialTheme.colors.onBackground
         ),
-        error = OtpErrorCustomization(Modifier.padding(horizontal = 8.dp, vertical = 4.dp)),
+        error = ErrorCustomization(Modifier.padding(horizontal = 8.dp, vertical = 4.dp)),
         scaffoldState = rememberScaffoldState()
     )
 }

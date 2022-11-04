@@ -8,7 +8,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.library.otpcomposable.model.DigitViewType
 
-data class OtpViewCustomization(
+data class ContentCustomization(
     val modifier: Modifier = Modifier,
     val color: Color = Color.Black,
     val digitCount: Int = 6,

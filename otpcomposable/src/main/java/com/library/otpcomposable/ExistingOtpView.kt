@@ -25,8 +25,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.library.otpcomposable.helpers.animateText
 import com.library.otpcomposable.model.DigitViewType
-import com.library.otpcomposable.uimodel.OtpErrorCustomization
-import com.library.otpcomposable.uimodel.OtpViewCustomization
+import com.library.otpcomposable.uimodel.ErrorCustomization
+import com.library.otpcomposable.uimodel.ContentCustomization
+import com.library.otpcomposable.widgets.DigitsView
+import com.library.otpcomposable.widgets.ErrorView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -40,8 +42,8 @@ fun ExistingOtpView(
     onPinChange: (String) -> Unit,
     expectedPin: String,
     onSuccess: () -> Unit,
-    view: OtpViewCustomization,
-    error: OtpErrorCustomization,
+    content: ContentCustomization,
+    error: ErrorCustomization,
     scaffoldState: ScaffoldState
 ) {
     val scope = rememberCoroutineScope()
@@ -54,18 +56,18 @@ fun ExistingOtpView(
             value = pin,
             onValueChange = {
                 // update state
-                if (it.length <= view.digitCount) onPinChange(it)
+                if (it.length <= content.digitCount) onPinChange(it)
                 // handle error
-                isError = handleError(it, expectedPin, offset, scope, localView, view, error, scaffoldState)
+                isError = handleError(it, expectedPin, offset, scope, localView, content, error, scaffoldState)
                 // handle success
                 if (it == expectedPin) onSuccess()
             },
-            modifier = view.modifier.offset(offset.value.dp, 0.dp),
+            modifier = content.modifier.offset(offset.value.dp, 0.dp),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             decorationBox = {
                 DigitsView(
                     pin = pin,
-                    view = view,
+                    content = content,
                     isError = isError
                 )
             }
@@ -84,11 +86,11 @@ fun handleError(
     offset: Animatable<Float, AnimationVector1D>,
     scope: CoroutineScope,
     localView: View,
-    view: OtpViewCustomization,
-    error: OtpErrorCustomization,
+    content: ContentCustomization,
+    error: ErrorCustomization,
     scaffoldState: ScaffoldState
 ): Boolean {
-    if (newValue.length < view.digitCount || newValue == expectedPin) {
+    if (newValue.length < content.digitCount || newValue == expectedPin) {
         return false
     }
 
@@ -110,12 +112,12 @@ fun ExistingOtpPreview() {
         onPinChange = onPinValueChange,
         expectedPin = "123456",
         onSuccess = {},
-        view = OtpViewCustomization(
+        content = ContentCustomization(
             modifier = Modifier.padding(8.dp),
             type = DigitViewType.Rounded(50),
             color = MaterialTheme.colors.onBackground
         ),
-        error = OtpErrorCustomization(Modifier.padding(horizontal = 8.dp, vertical = 4.dp)),
+        error = ErrorCustomization(Modifier.padding(horizontal = 8.dp, vertical = 4.dp)),
         scaffoldState = rememberScaffoldState()
     )
 }

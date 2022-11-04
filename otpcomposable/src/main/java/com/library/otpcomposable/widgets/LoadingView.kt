@@ -1,4 +1,4 @@
-package com.library.otpcomposable
+package com.library.otpcomposable.widgets
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.library.otpcomposable.uimodel.OtpLoadingCustomization
+import com.library.otpcomposable.uimodel.LoadingCustomization
 
 @Composable
-fun LoadingView(data: OtpLoadingCustomization) {
+fun LoadingView(data: LoadingCustomization) {
     Row(verticalAlignment = CenterVertically) {
         if (data.showMessage) {
             Text(
@@ -39,7 +39,7 @@ fun LoadingView(data: OtpLoadingCustomization) {
 @Composable
 fun LoadingPreview() {
     LoadingView(
-        OtpLoadingCustomization(
+        LoadingCustomization(
             modifier = Modifier.padding(8.dp),
             loadingMessage = "Loading time!",
             showMessage = true,

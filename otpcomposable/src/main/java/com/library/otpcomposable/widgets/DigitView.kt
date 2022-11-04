@@ -1,4 +1,4 @@
-package com.library.otpcomposable
+package com.library.otpcomposable.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -22,19 +22,19 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.library.otpcomposable.model.DigitViewType
-import com.library.otpcomposable.uimodel.OtpViewCustomization
+import com.library.otpcomposable.uimodel.ContentCustomization
 
 @Composable
 fun DigitView(
     index: Int,
     pin: String,
     isError: Boolean,
-    view: OtpViewCustomization
+    content: ContentCustomization
 ) {
     val modifier = Modifier.resolveModifier(
-        type = view.type,
-        containerSize = view.containerSize,
-        color = if (isError) MaterialTheme.colors.onError else view.color
+        type = content.type,
+        containerSize = content.containerSize,
+        color = if (isError) MaterialTheme.colors.onError else content.color
     )
 
     Column(
@@ -43,19 +43,19 @@ fun DigitView(
         Text(
             text = if (index >= pin.length) "" else pin[index].toString(),
             modifier = modifier.wrapContentHeight(CenterVertically),
-            color = view.color,
+            color = content.color,
             textAlign = TextAlign.Center,
-            fontSize = view.digitSize,
+            fontSize = content.digitSize,
             style = MaterialTheme.typography.body1
         )
 
-        if (view.type == DigitViewType.Underline) {
+        if (content.type == DigitViewType.Underline) {
             Spacer(modifier = Modifier.height(2.dp))
             Box(
                 modifier = Modifier
-                    .background(view.color)
+                    .background(content.color)
                     .height(1.dp)
-                    .width(view.containerSize)
+                    .width(content.containerSize)
             )
         }
     }
@@ -87,6 +87,6 @@ fun DigitPreview() {
         index = 1,
         pin = "123",
         isError = false,
-        view = OtpViewCustomization()
+        content = ContentCustomization()
     )
 }

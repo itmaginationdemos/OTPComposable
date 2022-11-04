@@ -33,9 +33,9 @@ import androidx.compose.ui.unit.sp
 import com.library.otpcomposable.OtpView
 import com.library.otpcomposable.model.DigitViewType
 import com.library.otpcomposable.uimodel.LCE
-import com.library.otpcomposable.uimodel.OtpErrorCustomization
-import com.library.otpcomposable.uimodel.OtpLoadingCustomization
-import com.library.otpcomposable.uimodel.OtpViewCustomization
+import com.library.otpcomposable.uimodel.ErrorCustomization
+import com.library.otpcomposable.uimodel.LoadingCustomization
+import com.library.otpcomposable.uimodel.ContentCustomization
 import com.sample.myapplication.ui.theme.OtpComposableTheme
 
 // todo
@@ -95,19 +95,19 @@ fun Screen(scaffoldState: ScaffoldState, padding: PaddingValues) {
                     // switch to loading and probably pass to BE
                     lce = LCE.Loading
                 },
-                view = OtpViewCustomization(
+                content = ContentCustomization(
                     modifier = Modifier.padding(8.dp),
                     type = DigitViewType.Rounded(50),
                     color = MaterialTheme.colors.onBackground,
                     digitCount = DIGIT_COUNT
                 ),
                 scaffoldState = scaffoldState,
-                error = OtpErrorCustomization(
+                error = ErrorCustomization(
                     snackMsg = "Incorrect code",
                     message = "Wrong code entered",
                     modifier = Modifier.padding(8.dp)
                 ),
-                loading = OtpLoadingCustomization(modifier = Modifier.padding(8.dp)),
+                loading = LoadingCustomization(modifier = Modifier.padding(8.dp)),
                 lce = lce
             )
         }
