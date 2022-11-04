@@ -25,8 +25,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.library.otpcomposable.helpers.animateText
 import com.library.otpcomposable.model.DigitViewType
-import com.library.otpcomposable.uimodel.ErrorCustomization
 import com.library.otpcomposable.uimodel.ContentCustomization
+import com.library.otpcomposable.uimodel.ErrorCustomization
 import com.library.otpcomposable.widgets.DigitsView
 import com.library.otpcomposable.widgets.ErrorView
 import kotlinx.coroutines.CoroutineScope
