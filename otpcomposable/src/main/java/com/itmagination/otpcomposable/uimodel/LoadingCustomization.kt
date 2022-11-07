@@ -1,4 +1,4 @@
-package com.library.otpcomposable.uimodel
+package com.itmagination.otpcomposable.uimodel
 
 import androidx.compose.ui.Modifier
 

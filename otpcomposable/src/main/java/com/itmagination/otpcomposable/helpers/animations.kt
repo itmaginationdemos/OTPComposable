@@ -1,4 +1,4 @@
-package com.library.otpcomposable.helpers
+package com.itmagination.otpcomposable.helpers
 
 import android.os.Build
 import android.view.HapticFeedbackConstants

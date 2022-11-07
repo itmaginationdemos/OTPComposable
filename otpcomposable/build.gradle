@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace 'com.library.otpcomposable'
+    namespace 'com.itmagination.otpcomposable'
     compileSdk 33
 
     defaultConfig {
@@ -62,7 +62,7 @@ afterEvaluate {
                 // Applies the component for the release build variant.
                 from components.release
 
-                groupId = "com.library"
+                groupId = "com.itmagination"
                 artifactId = "otpcomposable"
                 version = androidGitVersion.code()
 

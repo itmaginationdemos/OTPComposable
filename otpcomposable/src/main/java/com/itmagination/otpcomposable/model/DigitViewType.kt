@@ -1,4 +1,4 @@
-package com.library.otpcomposable.model
+package com.itmagination.otpcomposable.model
 
 import androidx.annotation.IntRange
 

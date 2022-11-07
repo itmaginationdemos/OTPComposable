@@ -1,4 +1,4 @@
-package com.library.otpcomposable.uimodel
+package com.itmagination.otpcomposable.uimodel
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -6,7 +6,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.library.otpcomposable.model.DigitViewType
+import com.itmagination.otpcomposable.model.DigitViewType
 
 data class ContentCustomization(
     val modifier: Modifier = Modifier,

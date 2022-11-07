@@ -1,4 +1,4 @@
-package com.library.otpcomposable.widgets
+package com.itmagination.otpcomposable.widgets
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -21,8 +21,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.library.otpcomposable.model.DigitViewType
-import com.library.otpcomposable.uimodel.ContentCustomization
+import com.itmagination.otpcomposable.model.DigitViewType
+import com.itmagination.otpcomposable.uimodel.ContentCustomization
 
 @Composable
 fun DigitView(

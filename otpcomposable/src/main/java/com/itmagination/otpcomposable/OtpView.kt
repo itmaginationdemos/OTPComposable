@@ -1,4 +1,4 @@
-package com.library.otpcomposable
+package com.itmagination.otpcomposable
 
 import android.view.View
 import androidx.compose.animation.core.Animatable
@@ -23,15 +23,15 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.library.otpcomposable.helpers.animateText
-import com.library.otpcomposable.model.DigitViewType
-import com.library.otpcomposable.uimodel.ContentCustomization
-import com.library.otpcomposable.uimodel.ErrorCustomization
-import com.library.otpcomposable.uimodel.LCE
-import com.library.otpcomposable.uimodel.LoadingCustomization
-import com.library.otpcomposable.widgets.DigitsView
-import com.library.otpcomposable.widgets.ErrorView
-import com.library.otpcomposable.widgets.LoadingView
+import com.itmagination.otpcomposable.helpers.animateText
+import com.itmagination.otpcomposable.model.DigitViewType
+import com.itmagination.otpcomposable.uimodel.ContentCustomization
+import com.itmagination.otpcomposable.uimodel.ErrorCustomization
+import com.itmagination.otpcomposable.uimodel.LCE
+import com.itmagination.otpcomposable.uimodel.LoadingCustomization
+import com.itmagination.otpcomposable.widgets.DigitsView
+import com.itmagination.otpcomposable.widgets.ErrorView
+import com.itmagination.otpcomposable.widgets.LoadingView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

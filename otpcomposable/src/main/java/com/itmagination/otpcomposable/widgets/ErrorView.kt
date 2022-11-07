@@ -1,4 +1,4 @@
-package com.library.otpcomposable.widgets
+package com.itmagination.otpcomposable.widgets
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text

@@ -30,12 +30,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.library.otpcomposable.OtpView
-import com.library.otpcomposable.model.DigitViewType
-import com.library.otpcomposable.uimodel.LCE
-import com.library.otpcomposable.uimodel.ErrorCustomization
-import com.library.otpcomposable.uimodel.LoadingCustomization
-import com.library.otpcomposable.uimodel.ContentCustomization
+import com.itmagination.otpcomposable.OtpView
+import com.itmagination.otpcomposable.model.DigitViewType
+import com.itmagination.otpcomposable.uimodel.LCE
+import com.itmagination.otpcomposable.uimodel.ErrorCustomization
+import com.itmagination.otpcomposable.uimodel.LoadingCustomization
+import com.itmagination.otpcomposable.uimodel.ContentCustomization
 import com.sample.myapplication.ui.theme.OtpComposableTheme
 
 // todo
