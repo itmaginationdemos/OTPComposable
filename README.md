@@ -14,10 +14,10 @@ allprojects {
 }
 ```
 
-Step 2. Add the dependency
+Step 2. Add the dependency with the current version
 ```kotlin
 dependencies {
-    implementation 'com.github.itmaginationdemos:OTPComposable:0.3.1'
+    implementation 'com.github.itmaginationdemos:OTPComposable:x.x.x'
 }
 ```
 
