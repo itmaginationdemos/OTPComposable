@@ -17,7 +17,7 @@ allprojects {
 Step 2. Add the dependency
 ```kotlin
 dependencies {
-    implementation 'com.github.itmaginationdemos:OTPComposable:0.2'
+    implementation 'com.github.itmaginationdemos:OTPComposable:0.3.1'
 }
 ```
 
