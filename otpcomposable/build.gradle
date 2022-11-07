@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'maven-publish'
+    id 'com.gladed.androidgitversion' version '0.4.14'
 }
 
 android {
@@ -11,6 +12,9 @@ android {
     defaultConfig {
         minSdk 26
         targetSdk 33
+
+        versionName androidGitVersion.name()
+        versionCode androidGitVersion.code()
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -60,8 +64,7 @@ afterEvaluate {
 
                 groupId = "com.library"
                 artifactId = "otpcomposable"
-                // todo fix this
-                version = "1.0"
+                version = androidGitVersion.code()
 
             }
         }
