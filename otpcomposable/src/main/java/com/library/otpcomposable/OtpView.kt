@@ -110,7 +110,7 @@ fun handleError(
 
 @Preview(showBackground = true)
 @Composable
-fun OtpPreview() {
+private fun OtpPreview() {
     val (pinValue, onPinValueChange) = remember { mutableStateOf("") }
     ExistingOtpView(
         pin = pinValue,

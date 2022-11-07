@@ -33,7 +33,7 @@ fun DigitsView(
 
 @Preview(showBackground = true)
 @Composable
-fun DigitsPreview() {
+private fun DigitsPreview() {
     DigitsView(
         pin = "123",
         isError = false,

@@ -20,7 +20,7 @@ fun ErrorView(message: String, modifier: Modifier) {
 
 @Preview
 @Composable
-fun ErrorPreview() {
+private fun ErrorPreview() {
     ErrorView(
         modifier = Modifier,
         message = "Wrong code"

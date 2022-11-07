@@ -37,7 +37,7 @@ fun LoadingView(data: LoadingCustomization) {
 
 @Preview
 @Composable
-fun LoadingPreview() {
+private fun LoadingPreview() {
     LoadingView(
         LoadingCustomization(
             modifier = Modifier.padding(8.dp),

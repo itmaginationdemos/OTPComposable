@@ -116,6 +116,6 @@ fun Screen(scaffoldState: ScaffoldState, padding: PaddingValues) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+private fun DefaultPreview() {
     Screen(rememberScaffoldState(), PaddingValues(0.dp))
 }
