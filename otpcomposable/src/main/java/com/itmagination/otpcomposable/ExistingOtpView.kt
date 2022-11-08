@@ -20,7 +20,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.itmagination.otpcomposable.helpers.animateText
@@ -63,7 +62,7 @@ fun ExistingOtpView(
                 if (it == expectedPin) onSuccess()
             },
             modifier = content.modifier.offset(offset.value.dp, 0.dp),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+            keyboardOptions = KeyboardOptions(keyboardType = content.keyboardType),
             decorationBox = {
                 DigitsView(
                     pin = pin,

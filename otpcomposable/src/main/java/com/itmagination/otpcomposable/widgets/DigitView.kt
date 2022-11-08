@@ -41,7 +41,7 @@ fun DigitView(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = if (index >= pin.length) "" else pin[index].toString(),
+            text = getText(index, pin, content),
             modifier = modifier.wrapContentHeight(CenterVertically),
             color = content.color,
             textAlign = TextAlign.Center,
@@ -60,6 +60,13 @@ fun DigitView(
         }
     }
 }
+
+private fun getText(index: Int, pin: String, content: ContentCustomization): String =
+    when {
+        index >= pin.length -> ""
+        content.isPassword -> content.passwordChar.toString()
+        else -> pin[index].toString()
+    }
 
 private fun Modifier.resolveModifier(
     type: DigitViewType,
