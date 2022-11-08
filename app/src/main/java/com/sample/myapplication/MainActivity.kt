@@ -26,6 +26,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -99,7 +100,10 @@ fun Screen(scaffoldState: ScaffoldState, padding: PaddingValues) {
                     modifier = Modifier.padding(8.dp),
                     type = DigitViewType.Rounded(50),
                     color = MaterialTheme.colors.onBackground,
-                    digitCount = DIGIT_COUNT
+                    digitCount = DIGIT_COUNT,
+                    isPassword = true,
+                    keyboardType = KeyboardType.Text,
+                    passwordChar = 'X'
                 ),
                 scaffoldState = scaffoldState,
                 error = ErrorCustomization(
