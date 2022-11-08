@@ -39,11 +39,6 @@ import com.itmagination.otpcomposable.uimodel.LoadingCustomization
 import com.itmagination.otpcomposable.uimodel.ContentCustomization
 import com.sample.myapplication.ui.theme.OtpComposableTheme
 
-// todo
-// password: Boolean = false,
-// passwordChar: String = "*",
-// keyboardOptions: KeyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-
 const val DIGIT_COUNT = 5
 
 class MainActivity : ComponentActivity() {
